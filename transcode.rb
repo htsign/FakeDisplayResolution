@@ -12,7 +12,7 @@ module TransCode
           exit 1
         end
       end
-      packed = [0, horizontal.to_i, 0, vertical.to_i, 0, 0, 0, 1].pack 'nnnnCCCC'
+      packed = [0, horizontal.to_i, 0, vertical.to_i, 0, 0, 0, 1].pack 'n4C4'
       Base64.encode64 packed
     end
 
@@ -23,7 +23,7 @@ module TransCode
     
     def raw str
       decoded = Base64.decode64 str
-      decoded.unpack 'nnnnCCCCCCCC'
+      decoded.unpack 'n4C8'
     end
   end
 end
