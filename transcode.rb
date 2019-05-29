@@ -6,11 +6,9 @@ module TransCode
 
   class << self
     def encode horizontal, vertical
-      [horizontal, vertical].each do |s|
-        unless s.integer?
-          STDERR.puts "Not a number: #{s}"
-          exit 1
-        end
+      [horizontal, vertical].reject(&:integer?).each do |s|
+        STDERR.puts "Not a number: #{s}"
+        exit 1
       end
       packed = [0, horizontal.to_i, 0, vertical.to_i, 0, 0, 0, 1].pack 'n4C4'
       Base64.encode64 packed
